@@ -1,0 +1,19 @@
+enable
+conf t
+hostname R{{ device_id }}
+ipv6 unicast-routing
+
+ip domain-name locallab.test
+username admin privilege 15 secret cisco
+crypto key generate rsa modulus 1024
+ip ssh version 2 
+
+{% for interface in interfaces_list %}
+interface {{ interface.interface}}
+  description To {{ interface.neighbor }}
+  ip address {{ interface.ipv4_address }}
+  ipv6 address {{ interface.ipv6_address }}
+  no shutdown
+{% endfor %}
+end
+wr

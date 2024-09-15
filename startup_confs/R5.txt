@@ -1,0 +1,31 @@
+enable
+conf t
+hostname R5
+ipv6 unicast-routing
+
+ip domain-name locallab.test
+username admin privilege 15 secret cisco
+crypto key generate rsa modulus 1024
+ip ssh version 2 
+
+
+interface GigabitEthernet0/0
+  description To WAN Router
+  ip address 4.4.4.6 255.255.255.0
+  ipv6 address 2001:100:0:1::5/64
+  no shutdown
+
+interface GigabitEthernet0/1
+  description To R8
+  ip address 100.5.8.6 255.255.255.0
+  ipv6 address 2001:100:5:8::5/64
+  no shutdown
+
+interface GigabitEthernet0/2
+  description To R4
+  ip address 100.4.5.6 255.255.255.0
+  ipv6 address 2001:100:4:5::5/64
+  no shutdown
+
+end
+wr

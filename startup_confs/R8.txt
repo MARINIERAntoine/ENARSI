@@ -1,0 +1,25 @@
+enable
+conf t
+hostname R8
+ipv6 unicast-routing
+
+ip domain-name locallab.test
+username admin privilege 15 secret cisco
+crypto key generate rsa modulus 1024
+ip ssh version 2 
+
+
+interface GigabitEthernet0/0
+  description To R5
+  ip address 100.5.8.9 255.255.255.0
+  ipv6 address 2001:100:5:8::8/64
+  no shutdown
+
+interface GigabitEthernet0/1
+  description To R10
+  ip address 100.8.10.9 255.255.255.0
+  ipv6 address 2001:100:8:10::8/64
+  no shutdown
+
+end
+wr
